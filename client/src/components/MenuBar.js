@@ -1,36 +1,39 @@
 import React, { Component, useState } from "react";
 import { Menu, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 function MenuBar() {
-  const [activeItem, setActiveItem] = useState("");
+  const pathname = window.location.pathname;
+  const path = pathname === "/" ? "home" : pathname.substr(1);
 
-  handleItemClick = (e, { name }) => setActiveItem({ activeItem: name });
+  const [activeItem, setActiveItem] = useState(path);
 
-  const { activeItem } = this.state;
+  const handleItemClick = (e, { name }) => setActiveItem(name);
 
   return (
-    <Menu pointing secondary>
+    <Menu pointing secondary size="massive" color="teal">
       <Menu.Item
         name="home"
         active={activeItem === "home"}
         onClick={handleItemClick}
-      />
-      <Menu.Item
-        name="messages"
-        active={activeItem === "messages"}
-        onClick={handleItemClick}
-      />
-      <Menu.Item
-        position="right"
-        name="login"
-        active={activeItem === "login"}
-        onClick={handleItemClick}
+        as={Link}
+        to={"/"}
       />
       <Menu.Menu position="right">
+        <Menu.Item
+          name="login"
+          active={activeItem === "login"}
+          onClick={handleItemClick}
+          as={Link}
+          to={"/login"}
+        />
+
         <Menu.Item
           name="register"
           active={activeItem === "register"}
           onClick={handleItemClick}
+          as={Link}
+          to={"/register"}
         />
       </Menu.Menu>
     </Menu>
